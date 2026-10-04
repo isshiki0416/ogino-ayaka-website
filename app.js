@@ -8,34 +8,6 @@ document.querySelector('#policy-list').innerHTML=policies.map((p,i)=>`<details c
 const menu=document.querySelector('.menu');menu.addEventListener('click',()=>{const open=document.querySelector('nav').classList.toggle('open');menu.setAttribute('aria-expanded',String(open));menu.setAttribute('aria-label',open?'メニューを閉じる':'メニューを開く');menu.textContent=open?'×':'☰'});document.querySelectorAll('nav a').forEach(a=>a.addEventListener('click',()=>{document.querySelector('nav').classList.remove('open');menu.setAttribute('aria-expanded','false');menu.textContent='☰'}));document.querySelectorAll('a[href^="#policy-"]').forEach(a=>a.addEventListener('click',()=>{document.querySelector(a.getAttribute('href')).open=true}));
 const config=window.SITE_CONFIG||{};if(config.adobeFontsStylesheet){const l=document.createElement('link');l.rel='stylesheet';l.href=config.adobeFontsStylesheet;document.head.append(l)}
 if(config.instagramUrl){document.querySelectorAll('.social-links a, .footer-social a').forEach(a=>{if(a.href.startsWith('https://www.instagram.com/')) a.href=config.instagramUrl;});}
-const videoArea = document.querySelector('#video-list');
-(config.videos || []).forEach(video => {
- const card = document.createElement('a');
- card.className = 'video-card';
- card.href = video.url;
- card.target = '_blank';
- card.rel = 'noopener noreferrer';
- card.setAttribute('aria-label', video.title + '（新しいタブで開きます）');
- const thumbnail = document.createElement('div');
- thumbnail.className = 'video-thumb';
- if (video.thumbnail) {
-  const image = document.createElement('img');
-  image.src = video.thumbnail;
-  image.alt = video.thumbnailAlt || '';
-  image.loading = 'lazy';
-  image.decoding = 'async';
-  if (video.thumbnailPosition) image.style.objectPosition = video.thumbnailPosition;
-  thumbnail.append(image);
- }
- const title = document.createElement('h3');
- title.textContent = video.title;
- const link = document.createElement('p');
- link.className = 'video-cta';
- link.textContent = (video.cta || '動画を見る') + ' ↗';
- card.append(thumbnail, title, link);
- videoArea.append(card);
-});
-
 // Familiar SNS marks, with visible text labels retained for accessibility.
 const iconPaths={
  x:'<path d="M18.9 2H22l-6.8 7.8L23.2 22h-6.3L12 14.5 5.4 22H2.2l7.6-8.7L.8 2h6.5l4.5 6.8L18.9 2ZM17.8 20h1.7L6.3 3.9H4.5L17.8 20Z"/>',
